@@ -89,7 +89,14 @@ def resolve_path(p: str) -> str:
 def handle_request(req):
     req_id = req.get("id")
     method = req.get("method")
+
+    # Notification sans id : absorption silencieuse
+    if req_id is None:
+        return None
     params = req.get("params", {})
+
+    if method == "ping":
+        return {"jsonrpc": "2.0", "id": req_id, "result": {}}
 
     if method == "initialize":
         return {
