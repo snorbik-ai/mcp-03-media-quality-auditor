@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp-03-media-quality-auditor"
+version = "1.0.0"
+description = "Contrôleur qualité qui analyse la netteté, la résolution et élimine les doublons d'images par calcul de hash perceptuel."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Proprietary / SNORBIK AI" }
+authors = [
+    { name = "Snorbik AI Engineering", email = "engineering@snorbik.ai" }
+]
+dependencies = [
+    "pillow>=10.2.0",
+    "imagehash>=4.3.1",
+    "pydantic>=2.7.0",
+    "mcp>=1.0.0"
+]
+
+[tool.setuptools]
+packages = { find = { where = ["."], exclude = ["tests*", "docs*"] } }

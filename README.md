@@ -1,53 +1,61 @@
 # mcp-03-media-quality-auditor
 
 [![Pôle Stratégique](https://img.shields.io/badge/P%C3%B4le-02_POLE_ECOMMERCE_CATALOGUE-blue.svg)](#)
-[![Nature Commerciale](https://img.shields.io/badge/Nature-OUTIL-orange.svg)](#)
+[![Nature](https://img.shields.io/badge/Nature-OUTIL-orange.svg)](#)
 [![Visibilité](https://img.shields.io/badge/Visibilit%C3%A9-CODE-green.svg)](#)
-[![Clean Architecture](https://img.shields.io/badge/Architecture-Clean%20Architecture%20Ports%20%26%20Adapters-teal.svg)](#)
-[![Budget Lignes](https://img.shields.io/badge/R%C3%A8gle%20%235-%3C%20350%20Lignes%20Garanti-blueviolet.svg)](#)
+[![Version](https://img.shields.io/badge/Version-1.0.0-purple.svg)](#)
+[![Standard](https://img.shields.io/badge/Standard-V14.1%20Clean%20Architecture-teal.svg)](#)
 
 > **OUTIL OPEN-SOURCE (Marketing Image & E-commerce)**  
-> Génération de leads e-commerce sur LinkedIn. Détecte le flou, calcule le hash perceptuel et élimine les doublons d'images.
+> Contrôleur qualité qui analyse la netteté, la résolution et élimine les doublons d'images par calcul de hash perceptuel.
 
 ---
 
-## 1. Fiche d'Identité & Modèle Commercial
+## 1. Carte d'Identité & Rôle Métier
 
-| Champ | Valeur Stratégique |
+| Champ Stratégique | Valeur Officielle |
 | :--- | :--- |
-| **Composant** | `mcp-03-media-quality-auditor` |
-| **Pôle d'Appartenance** | **Pôle 2 : Suite E-Commerce & Ingestion de Catalogues Marchands** |
+| **Composant Officiel** | `mcp-03-media-quality-auditor` |
+| **Pôle d'Appartenance** | **Pôle 2 : La Suite E-commerce & Ingestion de Catalogues Marchands** |
 | **Modèle Business** | **OUTIL OPEN-SOURCE (Marketing Image & E-commerce)** |
-| **Stratégie de Visibilité** | **CODE PUBLIC OPEN-SOURCE (MIT)** |
-| **Potentiel Marché** | Génération de leads e-commerce sur LinkedIn. Détecte le flou, calcule le hash perceptuel et élimine les doublons d'images. |
+| **Politique de Visibilité** | **CODE PUBLIC OPEN-SOURCE (MIT)** |
+| **Mission Principale** | Contrôleur qualité qui analyse la netteté, la résolution et élimine les doublons d'images par calcul de hash perceptuel. |
+| **Architecture** | Clean Architecture Tri-Canal (STDIO / CLI / SDK In-Process) |
 
 ---
 
-## 2. Guide d'Installation 1-Clic (Développeur Humain)
+## 2. Guide d'Installation 1-Clic
+
+### Option A : Installation Automatisée 1-Clic (Recommandée)
+Exécutez simplement le script `install.py` à la racine du dépôt :
 
 ```bash
-git clone https://github.com/snorbik-ai/mcp-03-media-quality-auditor.git
-cd mcp-03-media-quality-auditor
 python install.py
 ```
 
-Le script installe automatiquement les dépendances requises et résout les chemins de manière dynamique (**zéro chemin Windows absolu en dur**).
+Ce script effectue automatiquement :
+1. La vérification de votre environnement Python (>= 3.10).
+2. L'installation des dépendances requises en mode éditable (`pip install -e .` ou `npm install`).
+3. La détection et l'injection automatique du serveur dans la configuration de Cursor (`%USERPROFILE%/.cursor/mcp.json`) sans écraser vos autres outils.
+
+### Option B : Installation Manuelle Développeur
+```bash
+pip install -e .
+```
 
 ---
 
-## 3. Configuration 1-Clic pour Agents IA (Cursor, Antigravity, Claude Code)
+## 3. Configuration Manuelle (Cursor, Antigravity, Claude Desktop)
 
-Ajoutez ce bloc à votre fichier `.mcp.json` ou `mcp_config.json` :
+Si vous préférez déclarer manuellement ce serveur dans votre fichier `.cursor/mcp.json` ou `mcp_config.json`, ajoutez le bloc suivant :
 
 ```json
 {
   "mcpServers": {
     "mcp-03-media-quality-auditor": {
       "command": "python",
-      "args": ["canal_mcp/mcp_server.py"],
-      "env": {
-        "PYTHONIOENCODING": "utf-8"
-      },
+      "args": ["canal_mcp/mcp_classic_stdio/mcp_server.py"],
+      "env": { "PYTHONIOENCODING": "utf-8" },
       "type": "stdio"
     }
   }
@@ -58,22 +66,26 @@ Ajoutez ce bloc à votre fichier `.mcp.json` ou `mcp_config.json` :
 
 ## 4. Catalogue Sémantique des Outils (`tools`)
 
-| Outil (`name`) | Rôle & Fonction | Déclencheur d'Action (Quand l'appeler ?) | Arguments requis | Sortie Observable |
+Ce composant expose des outils déterministes prêts à être invoqués par un modèle de langage (LLM) :
+
+| Nom de l'Outil (`tool`) | Rôle & Fonction Technique | Déclencheur d'Action (*Quand l'IA DOIT-ELLE l'appeler ?*) | Paramètres Requis | Sortie Retournée |
 | :--- | :--- | :--- | :--- | :--- |
-| `mcp_audit_media_library` | Scanne une bibliothèque d'images et repère les fichiers trop lourds ou flous. | **Avant toute campagne ou mise en ligne produit.** | `media_dir (str)` | Bilan de qualité et recommandations WebP |
+| `mcp_audit_image_resolution` | Vérifie les dimensions minimales, la netteté et le ratio des visuels de fiches produits. | **Avant la mise en ligne d'un catalogue de produits marchands.** | `image_path (str, requis), min_width (int, optionnel), min_height (int, optionnel)` | Rapport de conformité visuelle (résolution, format, flou éventuel). |
+| `mcp_detect_duplicate_images` | Calcule le hash perceptuel (pHash/dHash) de milliers d'images pour regrouper les doublons. | **Dès qu'un dossier d'assets contient des images similaires avec des noms différents.** | `images_dir (str, requis), threshold (int, optionnel)` | Groupes d'images identiques ou quasi-identiques à nettoyer. |
 
 ---
 
 ## 5. Exemples Concrets de Prompts Utilisateur
 
-Vous pouvez déclencher immédiatement ce composant en formulant ces requêtes dans votre IDE :
+Voici 3 exemples réels de requêtes que vous pouvez poser directement dans le chat de Cursor ou Claude Code pour faire travailler cet outil :
 
-1. *« Audite les photos de la galerie pour repérer celles qui dépassent 500 Ko. »*
-2. *« Trouve les images en doublon dans le dossier des médias produits. »*
-3. *« Vérifie la netteté et la résolution des vignettes de garde-corps. »*
+1. *« Scanne le dossier d'images produits et signale celles qui font moins de 800x800 pixels. »*
+2. *« Détecte les doublons d'images par calcul de hash perceptuel dans le dossier public/images. »*
+3. *« Génère un rapport de qualité des médias pour le catalogue e-commerce. »*
 
 ---
 
-## 📜 Propriété & Licence
-Composant officiel de l'écosystème **SNORBIK AI © 2026**.  
-Tous droits réservés.
+## 🛡️ Propriété Intellectuelle & Sécurité
+- **Éditeur :** SNORBIK AI © 2026.
+- **Classification :** Conforme à la Directive Maîtresse V14.1 (Recettes d'architecture sanctuarisées dans le Pôle 06).
+- **Zéro Régression :** Respect strict des budgets de lignes et des normes de sécurité.
