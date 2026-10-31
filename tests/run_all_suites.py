@@ -27,8 +27,8 @@ tool_root = current_dir.parent
 if str(tool_root) not in sys.path:
     sys.path.insert(0, str(tool_root))
 
-from core.domain.entities_and_ports import AuditedMediaEntity, IMediaInspectorPort
-from core.infrastructure.pillow_md5_inspector_adapter import PillowMd5InspectorAdapter
+from media_auditor_core.domain.entities_and_ports import AuditedMediaEntity, IMediaInspectorPort
+from media_auditor_core.infrastructure.pillow_md5_inspector_adapter import PillowMd5InspectorAdapter
 from canal_sdk_cli.sdk import MediaAuditorPipeline
 from canal_mcp.mcp_classic_stdio.mcp_server import handle_request
 from canal_ui.server import MediaAuditorHandler
@@ -105,7 +105,7 @@ def run_integration_tests():
 
 def run_validation_and_perf_tests():
     details = []
-    domain_code = (tool_root / "core" / "domain" / "entities_and_ports.py").read_text(encoding="utf-8")
+    domain_code = (tool_root / "media_auditor_core" / "domain" / "entities_and_ports.py").read_text(encoding="utf-8")
     assert "infrastructure" not in domain_code
     assert "canal_" not in domain_code
     details.append({"name": "Validation::Clean Architecture Domain purity check", "passed": True})

@@ -20,7 +20,7 @@ tool_root = current_dir.parent.parent
 if str(tool_root) not in sys.path:
     sys.path.insert(0, str(tool_root))
 
-from core.domain.entities_and_ports import IMediaInspectorPort
+from media_auditor_core.domain.entities_and_ports import IMediaInspectorPort
 
 
 class PillowMd5InspectorAdapter(IMediaInspectorPort):

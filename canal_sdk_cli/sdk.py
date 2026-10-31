@@ -17,8 +17,8 @@ tool_root = current_dir.parent
 if str(tool_root) not in sys.path:
     sys.path.insert(0, str(tool_root))
 
-from core.infrastructure.pillow_md5_inspector_adapter import PillowMd5InspectorAdapter
-from core.application.use_cases import (
+from media_auditor_core.infrastructure.pillow_md5_inspector_adapter import PillowMd5InspectorAdapter
+from media_auditor_core.application.use_cases import (
     AuditMediaDirectoryUseCase,
     CleanDuplicateMediaUseCase,
     GetCertifiedHeroCandidatesUseCase
